@@ -1,0 +1,2 @@
+bash .claude/hooks/secret-scan.sh
+pnpm exec lint-staged

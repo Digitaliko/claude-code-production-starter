@@ -1,0 +1,9 @@
+# Conventional commits: type(scope): summary. Merge, Revert and fixup!/squash! pass through.
+msg=$(head -1 "$1")
+case "$msg" in Merge\ *|Revert\ *|fixup!\ *|squash!\ *) exit 0 ;; esac
+if ! printf '%s' "$msg" | grep -qE '^(feat|fix|refactor|chore|docs|test|ci|perf)(\([a-z0-9._/-]+\))?!?: .+'; then
+  echo "Commit message must look like: type(scope): summary" >&2
+  echo "  types: feat fix refactor chore docs test ci perf   e.g. fix(auth): expire reset links" >&2
+  echo "  got:   $msg" >&2
+  exit 1
+fi

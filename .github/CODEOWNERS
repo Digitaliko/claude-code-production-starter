@@ -1,0 +1,6 @@
+# Who must review what. Replace the placeholders, then require code owner review
+# in branch protection. Later lines win.
+# *                     @your-org/your-team
+# /.claude/             @your-org/rules-owner
+# /.github/             @your-org/rules-owner
+# /AGENTS.md            @your-org/rules-owner

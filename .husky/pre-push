@@ -1,0 +1,8 @@
+# Warnings for humans (the agent's push-gate blocks these outright), then the fast checks.
+branch=$(git branch --show-current)
+case "$branch" in
+  main|master) echo "warning: pushing straight to $branch. Prefer a branch and a PR." >&2 ;;
+  feat/*|fix/*|refactor/*|chore/*|docs/*|test/*|ci/*|perf/*) ;;
+  *) echo "warning: branch '$branch' is not <type>/<description>, e.g. feat/invoice-export" >&2 ;;
+esac
+pnpm check
