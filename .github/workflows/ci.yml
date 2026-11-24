@@ -19,7 +19,7 @@ env:
 
 jobs:
   changes:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     outputs:
       code: ${{ steps.filter.outputs.code }}
       app: ${{ steps.app.outputs.app }}
@@ -41,7 +41,7 @@ jobs:
           else echo "app=false" >> "$GITHUB_OUTPUT"; echo "::notice::No package.json yet, app jobs skipped"; fi
 
   gate-selftest:
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v7
@@ -52,7 +52,7 @@ jobs:
   check:
     needs: changes
     if: needs.changes.outputs.code == 'true' && needs.changes.outputs.app == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -73,7 +73,7 @@ jobs:
   test:
     needs: changes
     if: needs.changes.outputs.code == 'true' && needs.changes.outputs.app == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v6
@@ -88,7 +88,7 @@ jobs:
   build:
     needs: changes
     if: needs.changes.outputs.code == 'true' && needs.changes.outputs.app == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v6
@@ -102,7 +102,7 @@ jobs:
   e2e:
     needs: changes
     if: needs.changes.outputs.code == 'true' && needs.changes.outputs.app == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
       - uses: pnpm/action-setup@v6
@@ -128,7 +128,7 @@ jobs:
       github.event_name == 'pull_request' &&
       needs.changes.outputs.code == 'true' && needs.changes.outputs.app == 'true' &&
       !contains(github.event.pull_request.labels.*.name, 'skip-red-proof')
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -147,7 +147,7 @@ jobs:
   ci:
     needs: [gate-selftest, check, test, build, e2e, red-proof]
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER_LABEL || 'ubuntu-latest' }}
     steps:
       - name: All jobs passed or were skipped
         env:
