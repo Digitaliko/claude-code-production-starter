@@ -66,8 +66,8 @@ If a rule or hook blocks you, stop and say so. Never route around it: a script t
 
 ## Pull requests
 
-- One task, one PR. Branch off `main`: `feat/`, `fix/`, `refactor/`, `chore/`, `docs/`, `test/`, `ci/`, `perf/`.
-- Conventional commits: `fix(auth): expire reset links`. The message says why; the diff shows what.
+- One task, one PR. Branch off `main`: `feat/`, `fix/`, `refactor/`, `chore/`, `docs/`, `test/`, `ci/`, `perf/`, `build/`, `style/`, `revert/`.
+- Conventional commits: `fix(auth): expire reset links`. Types: feat fix refactor chore docs test ci perf build style revert (`.husky/commit-msg`). The message says why; the diff shows what.
 - A visible UI change includes before and after screenshots.
 - CI must be green before review. A human who did not write the change reviews it. The AI review comments are advisory.
 
