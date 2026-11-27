@@ -134,10 +134,11 @@ jobs:
         with:
           fetch-depth: 0
       - uses: pnpm/action-setup@v6
+      # No `cache: pnpm` here: when nothing needs proving, gate.sh installs nothing, the pnpm
+      # store never exists, and on a cache miss (a new lockfile) the post-job cache save fails the job.
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-          cache: pnpm
       - name: Changed tests fail on the base and pass here
         env:
           BASE: origin/${{ github.base_ref }}
